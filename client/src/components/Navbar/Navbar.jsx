@@ -2,11 +2,13 @@ import "./Navbar.scss";
 import { assets } from "../../assets/assets";
 import { TbBasketFilled } from "react-icons/tb";
 import { FiSearch } from "react-icons/fi";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
 
 function Navbar({ setShowLogin }) {
   const [menu, setMenu] = useState("home");
+  const { getTotalCartAmount } = useContext(StoreContext);
 
   return (
     <div className="navbar">
@@ -49,7 +51,7 @@ function Navbar({ setShowLogin }) {
           <Link to="/cart">
             <TbBasketFilled className="basket-icon" color="#49557e" />
           </Link>
-          <div className="dot"></div>
+          {getTotalCartAmount() ? <div className="dot"></div> : null}
         </div>
         <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>
