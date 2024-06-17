@@ -3,48 +3,55 @@ import { assets } from "../../assets/assets";
 import { TbBasketFilled } from "react-icons/tb";
 import { FiSearch } from "react-icons/fi";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ setShowLogin }) {
   const [menu, setMenu] = useState("home");
 
   return (
     <div className="navbar">
-      <img src={assets.logo} alt="" className="logo" />
-      <ul className="navbar-menu">
-        <li
+      <Link to={"/"}>
+        <img src={assets.logo} alt="" className="logo" />
+      </Link>
+      <div className="navbar-menu">
+        <Link
+          to={"/"}
           className={menu === "home" ? "active" : ""}
           onClick={() => setMenu("home")}
         >
-          HOME
-        </li>
-        <li
+          Home
+        </Link>
+        <a
+          href="#explore-menu"
           className={menu === "menu" ? "active" : ""}
           onClick={() => setMenu("menu")}
         >
-          MENU
-        </li>
-        <li
+          Menu
+        </a>
+        <a
+          href="#app-download"
           className={menu === "mobile-app" ? "active" : ""}
           onClick={() => setMenu("mobile-app")}
         >
-          MOBILE-APP
-        </li>
-        <li
+          App
+        </a>
+        <a
+          href="#footer"
           className={menu === "contact-us" ? "active" : ""}
           onClick={() => setMenu("contact-us")}
         >
-          CONTACT US
-        </li>
-      </ul>
+          Contact
+        </a>
+      </div>
       <div className="navbar-right">
-        {/* <img src={assets.search_icon} alt="" /> */}
-        <FiSearch size="30px" color="#49557e" />
+        <FiSearch className="search-icon" color="#49557e" />
         <div className="navbar-basket-icon">
-          <TbBasketFilled size="34px" color="#49557e" />
-          {/* <img src={assets.basket_icon} alt="" /> */}
+          <Link to="/cart">
+            <TbBasketFilled className="basket-icon" color="#49557e" />
+          </Link>
           <div className="dot"></div>
         </div>
-        <button>SIGN IN</button>
+        <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>
     </div>
   );

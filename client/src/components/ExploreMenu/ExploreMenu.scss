@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .explore-menu {
   display: flex;
   flex-direction: column;
@@ -11,6 +13,11 @@
   .explore-menu-text {
     max-width: 60%;
     color: #808080;
+
+    @include tablet {
+      max-width: 100%;
+      font-size: 14px;
+    }
   }
 
   .explore-menu-list {

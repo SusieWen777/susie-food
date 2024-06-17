@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .navbar {
   padding: 20px 0px;
   display: flex;
@@ -6,6 +8,14 @@
 
   .logo {
     width: 150px;
+
+    @include tablet {
+      width: 140px;
+    }
+
+    @include bigMobile {
+      width: 120px;
+    }
   }
 
   .navbar-menu {
@@ -15,8 +25,17 @@
     color: #49557e;
     font-size: 18px;
 
-    li {
-      cursor: pointer;
+    @include tablet {
+      font-size: 17px;
+    }
+
+    @include bigMobile {
+      gap: 15px;
+      font-size: 16px;
+    }
+
+    @include mobile {
+      display: none;
     }
 
     .active {
@@ -30,10 +49,48 @@
     align-items: center;
     gap: 40px;
 
+    @include tablet {
+      gap: 30px;
+    }
+
+    @include bigMobile {
+      gap: 20px;
+    }
+
+    .search-icon {
+      width: 30px;
+      height: 30px;
+
+      @include tablet {
+        width: 24px;
+        height: 24px;
+      }
+
+      @include bigMobile {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
     .navbar-basket-icon {
       display: flex;
       align-items: center;
       position: relative;
+
+      .basket-icon {
+        width: 34px;
+        height: 34px;
+
+        @include tablet {
+          width: 28px;
+          height: 28px;
+        }
+
+        @include bigMobile {
+          width: 24px;
+          height: 24px;
+        }
+      }
 
       .dot {
         position: absolute;
@@ -45,20 +102,29 @@
         right: 0px;
       }
     }
-  }
 
-  button {
-    background-color: transparent;
-    font-size: 16px;
-    color: #49557e;
-    border: 1px solid tomato;
-    padding: 10px 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
+    button {
+      background-color: transparent;
+      font-size: 16px;
+      color: #49557e;
+      border: 1px solid tomato;
+      padding: 10px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
 
-  button:hover {
-    background-color: #fff4f2;
+      @include tablet {
+        padding: 8px 25px;
+      }
+
+      @include bigMobile {
+        padding: 7px 20px;
+        font-size: 15px;
+      }
+    }
+
+    button:hover {
+      background-color: #fff4f2;
+    }
   }
 }

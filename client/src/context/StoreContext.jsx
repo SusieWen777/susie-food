@@ -14,8 +14,16 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  const removeFromCart = (itemId) => {
+  const subtractFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+  };
+
+  const removeFromCart = (itemId) => {
+    setCartItems((prev) => {
+      const newCartItems = { ...prev };
+      delete newCartItems[itemId];
+      return newCartItems;
+    });
   };
 
   useEffect(() => {
@@ -27,6 +35,7 @@ const StoreContextProvider = (props) => {
     cartItems,
     setCartItems,
     addToCart,
+    subtractFromCart,
     removeFromCart,
   };
 

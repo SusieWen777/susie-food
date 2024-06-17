@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .header {
   height: 34vw;
   margin: 30px auto;
@@ -17,6 +19,14 @@
     color: white;
     animation: fadeIn 3s;
 
+    @include tablet {
+      max-width: 45%;
+    }
+
+    @include mobile {
+      max-width: 65%;
+    }
+
     h2 {
       font-weight: 500;
       font-size: max(4.5vw, 22px);
@@ -24,6 +34,10 @@
 
     p {
       font-size: 1vw;
+
+      @include mobile {
+        display: none;
+      }
     }
 
     button {
@@ -35,6 +49,10 @@
       font-size: max(1vw, 13px);
       border-radius: 50px;
       cursor: pointer;
+
+      @include mobile {
+        padding: 2vw 4vw;
+      }
     }
   }
 }

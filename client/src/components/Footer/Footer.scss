@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .footer {
   color: #d9d9d9;
   background-color: #323232;
@@ -13,6 +15,12 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     gap: 80px;
+
+    @include mobile {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
 
     .footer-content-left,
     .footer-content-center,
@@ -45,5 +53,11 @@
     margin: 20px 0;
     border: none;
     background-color: #d9d9d9;
+  }
+
+  .footer-copyright {
+    @include mobile {
+      text-align: center;
+    }
   }
 }

@@ -5,7 +5,7 @@ import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { StoreContext } from "../../context/StoreContext";
 
 function FoodItem({ item }) {
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const { cartItems, addToCart, subtractFromCart } = useContext(StoreContext);
 
   const { _id, name, price, description, image } = item;
 
@@ -25,7 +25,7 @@ function FoodItem({ item }) {
           <div className="food-item-counter">
             <div className="counter-btn-icon-wrapper remove-wrapper">
               <IoIosRemove
-                onClick={() => removeFromCart(_id)}
+                onClick={() => subtractFromCart(_id)}
                 size="24px"
                 color="red"
               />

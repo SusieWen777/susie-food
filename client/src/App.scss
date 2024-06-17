@@ -5,6 +5,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Outfit", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -27,5 +28,23 @@ a {
   }
   to {
     opacity: 1;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 1050px) {
+    @content;
+  }
+}
+
+@mixin bigMobile {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
   }
 }
