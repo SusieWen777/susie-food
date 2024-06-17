@@ -2,12 +2,10 @@ import { useContext } from "react";
 import "./Cart.scss";
 import { StoreContext } from "../../context/StoreContext";
 import { IoTrashOutline } from "react-icons/io5";
-
-const deliveryFee = 8;
+import CartTotal from "../../components/CartTotal/CartTotal";
 
 function Cart() {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
-    useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
 
   return (
     <div className="cart">
@@ -44,7 +42,8 @@ function Cart() {
         })}
       </div>
       <div className="cart-bottom">
-        <div className="cart-total">
+        <CartTotal btnText="Proceed to checkout" navToOrder={true} />
+        {/* <div className="cart-total">
           <h2>Cart Total</h2>
           <div>
             <div className="cart-total-details">
@@ -62,8 +61,10 @@ function Cart() {
               <b>${getTotalCartAmount() + deliveryFee}</b>
             </div>
           </div>
-          <button>Proceed to checkout</button>
-        </div>
+          <button onClick={() => navigate("/order")}>
+            Proceed to checkout
+          </button>
+        </div> */}
         <div className="cart-promocode">
           <div>
             <p>If you have a promo code, enter it here.</p>
