@@ -22,3 +22,31 @@ hr {
   height: 1px;
   background-color: #a9a9a9;
 }
+
+.app-content {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@mixin tablet {
+  @media (max-width: 1050px) {
+    @content;
+  }
+}
+
+@mixin bigMobile {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
