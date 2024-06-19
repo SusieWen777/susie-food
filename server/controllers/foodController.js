@@ -1,5 +1,7 @@
 import foodModel from "../models/foodModel.js";
 import fs from "fs";
+import { gfs } from "../routes/foodRoute.js";
+import mongoose from "mongoose";
 
 // add food item
 const addFood = async (req, res) => {
@@ -35,18 +37,64 @@ const listFood = async (req, res) => {
 
 // remove food item
 const removeFood = async (req, res) => {
+  const foodId = req.body.id;
+
   try {
-    const food = await foodModel.findById(req.body.id);
-    const imagePath = `uploads/${food.image}`;
+    // find the food document
+    const food = await foodModel.findById(foodId);
+    if (!food) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Food item not found" });
+    }
 
-    // delete image from uploads folder
-    fs.unlinkSync(imagePath);
+    // get the image filename of the food item
+    const imageFilename = food.image;
 
-    await foodModel.findByIdAndDelete(req.body.id);
-    res.json({ success: true, message: "Food item removed successfully" });
+    // create a GridFSBucket instance
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: "uploads",
+    });
+
+    // find the image file in GridFS
+    const files = await bucket.find({ filename: imageFilename }).toArray();
+    if (files.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Image file not found" });
+    }
+
+    const fileId = files[0]._id;
+
+    // delete the image file from GridFS
+    bucket.delete(fileId, async (err) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to delete image from GridFS",
+        });
+      }
+    });
+
+    try {
+      // delete the food document from MongoDB
+      await foodModel.deleteOne({ _id: foodId });
+      res.json({
+        success: true,
+        message: "Food item and image deleted successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Failed to delete food item" });
+    }
   } catch (error) {
     console.error(error);
-    res.json({ success: false, message: "Failed to remove food item" });
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while deleting food item",
+    });
   }
 };
 
