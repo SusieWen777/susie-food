@@ -1,0 +1,36 @@
+@import "../../App.scss";
+
+.list {
+  .list-table-format {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    border: 1px solid #cacaca;
+    font-size: 13px;
+
+    @include mobile {
+      grid-template-columns: 1fr 3fr 1fr;
+      gap: 15px;
+    }
+
+    &.title {
+      background-color: #f9f9f9;
+
+      @include mobile {
+        display: none;
+      }
+    }
+
+    img {
+      width: 50px;
+    }
+
+    .delete-icon {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+}

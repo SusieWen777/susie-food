@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { MdCloudUpload } from "react-icons/md";
-import axios from "axios";
-import "./Add.scss";
 import { toast } from "react-toastify";
+import "./Add.scss";
+import axiosInstance from "../../utils/axiosInstance.js";
 
 const originalData = {
   name: "",
@@ -12,7 +12,6 @@ const originalData = {
 };
 
 function Add() {
-  const url = "http://localhost:4000";
   const [image, setImage] = useState(null);
   const [data, setData] = useState(originalData);
   const imgUploadRef = useRef(null);
@@ -35,7 +34,7 @@ function Add() {
     console.log(formData);
 
     try {
-      const response = await axios.post(`${url}/api/food/add`, formData);
+      const response = await axiosInstance.post("/api/food/add", formData);
       if (response.data.success) {
         setData(originalData);
         setImage(null);

@@ -1,6 +1,6 @@
 import foodModel from "../models/foodModel.js";
-import fs from "fs";
-import { gfs } from "../routes/foodRoute.js";
+// import fs from "fs";
+// import { gfs } from "../routes/foodRoute.js";
 import mongoose from "mongoose";
 
 // add food item
@@ -98,4 +98,20 @@ const removeFood = async (req, res) => {
   }
 };
 
-export { addFood, listFood, removeFood };
+// get food image
+const getFoodImage = async (req, res) => {
+  const filename = req.params.filename;
+  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "uploads",
+  });
+
+  const downloadStream = bucket.openDownloadStreamByName(filename);
+
+  downloadStream.on("error", (err) => {
+    res.status(404).json({ success: false, message: "Image not found" });
+  });
+
+  downloadStream.pipe(res);
+};
+
+export { addFood, listFood, removeFood, getFoodImage };

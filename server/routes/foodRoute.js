@@ -3,6 +3,7 @@ import {
   addFood,
   listFood,
   removeFood,
+  getFoodImage,
 } from "../controllers/foodController.js";
 import multer from "multer";
 import mongoose from "mongoose";
@@ -38,5 +39,7 @@ conn.once("open", () => {
 foodRouter.get("/list", listFood);
 
 foodRouter.post("/remove/", removeFood);
+
+foodRouter.get("/image/:filename", getFoodImage);
 
 export default foodRouter;
