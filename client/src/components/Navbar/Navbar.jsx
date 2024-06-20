@@ -2,13 +2,22 @@ import "./Navbar.scss";
 import { assets } from "../../assets/assets";
 import { TbBasketFilled } from "react-icons/tb";
 import { FiSearch } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
+import { IoBagCheck, IoLogOutOutline } from "react-icons/io5";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 
 function Navbar({ setShowLogin }) {
   const [menu, setMenu] = useState("home");
-  const { getTotalCartAmount } = useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  };
 
   return (
     <div className="navbar">
@@ -53,7 +62,24 @@ function Navbar({ setShowLogin }) {
           </Link>
           {getTotalCartAmount() ? <div className="dot"></div> : null}
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign In</button>
+        {!token ? (
+          <button onClick={() => setShowLogin(true)}>Sign In</button>
+        ) : (
+          <div className="navbar-profile">
+            <CgProfile className="profile-icon" />
+            <ul className="nav-profile-dropdown">
+              <li>
+                <IoBagCheck className="dropdown-icon" />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li onClick={logout}>
+                <IoLogOutOutline className="dropdown-icon" />
+                <p>Logout</p>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

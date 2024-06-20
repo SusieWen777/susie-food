@@ -7,12 +7,15 @@ import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Footer from "./components/Footer/Footer";
 import { useState } from "react";
 import LoginPop from "./components/LoginPop/LoginPop";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
     <>
+      <ToastContainer />
       {showLogin && <LoginPop setShowLogin={setShowLogin} />}
       <div className="app">
         <Navbar setShowLogin={setShowLogin} />
