@@ -44,7 +44,7 @@ function CartTotal({ btnText, navToOrder, btnMarginTop }) {
       </div>
       <button
         onClick={handleOnClick}
-        style={{ "margin-top": btnMarginTop ? btnMarginTop : 0 }}
+        style={{ marginTop: btnMarginTop ? btnMarginTop : 0 }}
       >
         {btnText}
       </button>

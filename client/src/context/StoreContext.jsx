@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useCallback } from "react";
 import axiosInstance from "../utils/axiosInstance";
 
 export const StoreContext = createContext(null);
@@ -21,38 +21,87 @@ const StoreContextProvider = (props) => {
     }
   };
 
+  // Make sure the fetchCartItems function is not recreated on every render
+  const fetchCartItems = useCallback(async () => {
+    if (!token) return;
+    try {
+      const response = await axiosInstance.get("api/cart/", {
+        headers: { token },
+      });
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [token]);
+
   useEffect(() => {
     fetchFoodList();
-  }, []);
+    fetchCartItems();
+  }, [fetchCartItems]);
 
-  const addToCart = (itemId) => {
+  const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
     } else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
+    if (token) {
+      try {
+        await axiosInstance.post(
+          "api/cart/add",
+          { itemId },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
-  const subtractFromCart = (itemId) => {
+  const subtractFromCart = async (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    if (token) {
+      try {
+        await axiosInstance.post(
+          "api/cart/subtract",
+          { itemId },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
-  const removeFromCart = (itemId) => {
+  const removeFromCart = async (itemId) => {
     setCartItems((prev) => {
       const newCartItems = { ...prev };
       delete newCartItems[itemId];
       return newCartItems;
     });
+    if (token) {
+      try {
+        await axiosInstance.post(
+          "api/cart/remove",
+          { itemId },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   const getTotalCartAmount = () => {
-    let totalAmout = 0;
+    let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] === 0) continue;
       let itemInfo = food_list.find((food) => food._id === item);
-      totalAmout += itemInfo.price * cartItems[item];
+      totalAmount += itemInfo.price * cartItems[item];
     }
-    return totalAmout;
+    return totalAmount;
   };
 
   const contextValue = {
