@@ -3,6 +3,7 @@ import { assets } from "../../assets/assets";
 import "./FoodItem.scss";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { StoreContext } from "../../context/StoreContext";
+import { baseURL } from "../../utils/axiosInstance";
 
 function FoodItem({ item }) {
   const { cartItems, addToCart, subtractFromCart } = useContext(StoreContext);
@@ -12,7 +13,11 @@ function FoodItem({ item }) {
   return (
     <div className="food-item">
       <div className="image-container">
-        <img className="food-item-img" src={image} alt="" />
+        <img
+          className="food-item-img"
+          src={`${baseURL}/api/food/image/${image}`}
+          alt=""
+        />
         {!cartItems[_id] ? (
           <div className="create-btn-icon-wrapper">
             <IoIosAdd

@@ -3,6 +3,7 @@ import "./Cart.scss";
 import { StoreContext } from "../../context/StoreContext";
 import { IoTrashOutline } from "react-icons/io5";
 import CartTotal from "../../components/CartTotal/CartTotal";
+import { baseURL } from "../../utils/axiosInstance";
 
 function Cart() {
   const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
@@ -25,7 +26,7 @@ function Cart() {
             return (
               <div key={item._id}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={item.image} alt="" />
+                  <img src={`${baseURL}/api/food/image/${item.image}`} alt="" />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
