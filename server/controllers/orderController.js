@@ -1,6 +1,9 @@
+import Stripe from "stripe";
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
-import Stripe from "stripe";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // set up stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -17,7 +20,7 @@ const placeOrder = async (req, res) => {
       address: req.body.address,
     });
     await newOrder.save();
-    await userModel.findOneAndUpdate(req.body.userId, { cartData: {} });
+    await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
     // for stripe payment
     const line_items = req.body.items.map((item) => ({
@@ -37,7 +40,7 @@ const placeOrder = async (req, res) => {
         product_data: {
           name: "Delivery Charges",
         },
-        unit_amount: 5 * 100,
+        unit_amount: 8 * 100,
       },
       quantity: 1,
     });
@@ -51,8 +54,12 @@ const placeOrder = async (req, res) => {
 
     res.json({ success: true, session_url: session.url });
   } catch (error) {
-    console.error(error);
-    res.json({ success: false, message: "Failed to place order" });
+    console.error("Error placing order:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to place order",
+      error: error.message,
+    });
   }
 };
 

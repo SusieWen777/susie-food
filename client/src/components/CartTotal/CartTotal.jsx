@@ -1,22 +1,10 @@
 import "./CartTotal.scss";
 import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
-import { useNavigate } from "react-router-dom";
+import { Delivery_Fee } from "../../utils/constants";
 
-const deliveryFee = 8;
-
-function CartTotal({ btnText, navToOrder, btnMarginTop }) {
+function CartTotal({ btnText, navToOrder, handleOnClick, btnMarginTop }) {
   const { getTotalCartAmount } = useContext(StoreContext);
-  const navigate = useNavigate();
-
-  const handleOnClick = () => {
-    if (!getTotalCartAmount()) return;
-    if (navToOrder) {
-      navigate("/order");
-    } else {
-      //   window.location.href = "https://external-website.com";
-    }
-  };
 
   return (
     <div className="cart-total">
@@ -29,7 +17,7 @@ function CartTotal({ btnText, navToOrder, btnMarginTop }) {
         <hr />
         <div className="cart-total-details">
           <p>Delivery Fee</p>
-          <p>${getTotalCartAmount() === 0 ? "0" : deliveryFee}</p>
+          <p>${getTotalCartAmount() === 0 ? "0" : Delivery_Fee}</p>
         </div>
         <hr />
         <div className="cart-total-details">
@@ -38,13 +26,14 @@ function CartTotal({ btnText, navToOrder, btnMarginTop }) {
             $
             {getTotalCartAmount() === 0
               ? "0"
-              : getTotalCartAmount() + deliveryFee}
+              : getTotalCartAmount() + Delivery_Fee}
           </b>
         </div>
       </div>
       <button
         onClick={handleOnClick}
         style={{ marginTop: btnMarginTop ? btnMarginTop : 0 }}
+        type={navToOrder ? "button" : "submit"}
       >
         {btnText}
       </button>

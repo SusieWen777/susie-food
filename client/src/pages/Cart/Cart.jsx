@@ -4,9 +4,17 @@ import { StoreContext } from "../../context/StoreContext";
 import { IoTrashOutline } from "react-icons/io5";
 import CartTotal from "../../components/CartTotal/CartTotal";
 import { baseURL } from "../../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
+    useContext(StoreContext);
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    if (!getTotalCartAmount()) return;
+    navigate("/order");
+  };
 
   return (
     <div className="cart">
@@ -43,29 +51,11 @@ function Cart() {
         })}
       </div>
       <div className="cart-bottom">
-        <CartTotal btnText="Proceed to checkout" navToOrder={true} />
-        {/* <div className="cart-total">
-          <h2>Cart Total</h2>
-          <div>
-            <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
-            </div>
-            <hr />
-            <div className="cart-total-details">
-              <p>Delivery Fee</p>
-              <p>${deliveryFee}</p>
-            </div>
-            <hr />
-            <div className="cart-total-details">
-              <b>Total</b>
-              <b>${getTotalCartAmount() + deliveryFee}</b>
-            </div>
-          </div>
-          <button onClick={() => navigate("/order")}>
-            Proceed to checkout
-          </button>
-        </div> */}
+        <CartTotal
+          handleOnClick={handleOnClick}
+          btnText="Proceed to checkout"
+          navToOrder={true}
+        />
         <div className="cart-promocode">
           <div>
             <p>If you have a promo code, enter it here.</p>
