@@ -50,6 +50,8 @@ const placeOrder = async (req, res) => {
       mode: "payment",
       success_url: `${client_url}/verify?success=true&orderId=${newOrder._id}`,
       cancel_url: `${client_url}/verify?success=false&orderId=${newOrder._id}`,
+      metadata: { orderId: newOrder._id.toString() }, // deliver orderId to webhook
+      expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // expire in 30 minutes
     });
 
     res.json({ success: true, session_url: session.url });
@@ -63,23 +65,79 @@ const placeOrder = async (req, res) => {
   }
 };
 
-const verifyOrder = async (req, res) => {
-  const { orderId, success } = req.body;
+// const verifyOrder = async (req, res) => {
+//   const { orderId, success } = req.body;
+//   try {
+//     if (success === "true") {
+//       await orderModel.findByIdAndUpdate(orderId, { payment: true });
+//       res.json({ success: true, message: "Paid" });
+//     } else {
+//       await orderModel.findByIdAndDelete(orderId);
+//       res.json({ success: false, message: "Not paid" });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.json({
+//       success: false,
+//       message: "Error happens when updating the payment in database",
+//     });
+//   }
+// };
+
+const webhook = async (req, res) => {
+  const sig = req.headers["stripe-signature"];
+  let event;
+
+  console.log("Received webhook request.");
+
+  // verify the signature from the Stripe webhook
   try {
-    if (success === "true") {
-      await orderModel.findByIdAndUpdate(orderId, { payment: true });
-      res.json({ success: true, message: "Paid" });
-    } else {
-      await orderModel.findByIdAndDelete(orderId);
-      res.json({ success: false, message: "Not paid" });
-    }
-  } catch (error) {
-    console.error(error);
-    res.json({
-      success: false,
-      message: "Error happens when updating the payment in database",
-    });
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+    console.log("Webhook event parsed successfully.");
+  } catch (err) {
+    console.error("Webhook event parsing failed.", err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
   }
+
+  //handle the event
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+
+    // access metadata to get orderId
+    const orderId = session.metadata.orderId;
+    console.log(`Handling checkout.session.completed for order ID: ${orderId}`);
+
+    // update order payment status
+    try {
+      await orderModel.findByIdAndUpdate(orderId, { payment: "paid" });
+      console.log("Order payment status updated successfully.");
+    } catch (err) {
+      console.error("Failed to update order payment status.", err);
+    }
+  } else if (event.type === "checkout.session.expired") {
+    const session = event.data.object;
+
+    // access metadata to get orderId
+    const orderId = session.metadata.orderId;
+    console.log(`Handling checkout.session.expired for order ID: ${orderId}`);
+
+    // delete the order from database
+    try {
+      await orderModel.findByIdAndDelete(orderId);
+      console.log("Order deleted successfully due to session expiration.");
+    } catch (err) {
+      console.error("Failed to delete order.", err);
+    }
+  } else {
+    console.log(`Unhandled event type: ${event.type}`);
+  }
+
+  // return a response to acknowledge receipt of the event
+  res.json({ received: true });
 };
 
-export { placeOrder, verifyOrder };
+export { placeOrder, webhook };
