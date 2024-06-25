@@ -140,4 +140,18 @@ const webhook = async (req, res) => {
   res.json({ received: true });
 };
 
-export { placeOrder, webhook };
+// user orders for client
+const userOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ userId: req.body.userId });
+    res.json({ success: true, data: orders });
+  } catch (error) {
+    console.error("Error getting orders:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to get orders",
+    });
+  }
+};
+
+export { placeOrder, webhook, userOrders };

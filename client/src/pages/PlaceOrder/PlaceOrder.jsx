@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CartTotal from "../../components/CartTotal/CartTotal";
 import "./PlaceOrder.scss";
 import { StoreContext } from "../../context/StoreContext";
@@ -56,6 +57,14 @@ function PlaceOrder() {
       console.error(error);
     }
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token || getTotalCartAmount() === 0) {
+      navigate("/cart");
+    }
+  }, [token, navigate, getTotalCartAmount]);
 
   return (
     <form onSubmit={onPlaceOrder} className="place-order">

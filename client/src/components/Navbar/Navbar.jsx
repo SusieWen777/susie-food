@@ -68,7 +68,7 @@ function Navbar({ setShowLogin }) {
           <div className="navbar-profile">
             <CgProfile className="profile-icon" />
             <ul className="nav-profile-dropdown">
-              <li>
+              <li onClick={() => navigate("/myorders")}>
                 <IoBagCheck className="dropdown-icon" />
                 <p>Orders</p>
               </li>
