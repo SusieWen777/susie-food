@@ -10,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // placing user order
 const placeOrder = async (req, res) => {
-  const client_url = "http://localhost:5173";
+  const client_url = "http://localhost:5174";
 
   try {
     const newOrder = new orderModel({
@@ -154,4 +154,34 @@ const userOrders = async (req, res) => {
   }
 };
 
-export { placeOrder, webhook, userOrders };
+// list orders for admin panel
+const listOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ payment: "paid" });
+    res.json({ success: true, data: orders });
+  } catch (error) {
+    console.error("Error getting orders:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to get orders",
+    });
+  }
+};
+
+// for updating order status
+const updateStatus = async (req, res) => {
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId, {
+      status: req.body.status,
+    });
+    res.json({ success: true, message: "Status updated" });
+  } catch (error) {
+    console.error("Error updating status", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update status",
+    });
+  }
+};
+
+export { placeOrder, webhook, userOrders, listOrders, updateStatus };
