@@ -22,9 +22,15 @@
     justify-content: center;
     gap: 50px;
 
-    p {
-      font-size: 20px;
-      font-weight: 400;
+    .texts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      p {
+        font-size: 20px;
+        font-weight: 400;
+      }
     }
 
     button {

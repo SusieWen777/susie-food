@@ -45,7 +45,16 @@ function MyOrders() {
             <p>
               <span>&#x25cf;</span> <b>{order.status}</b>
             </p>
-            <button onClick={fetchOrders}>Track Order</button>
+            {order.payment === "unpaid" ? (
+              <button
+                className="pay-btn"
+                onClick={() => window.location.replace(order.session_url)}
+              >
+                Pay Here
+              </button>
+            ) : (
+              <button onClick={fetchOrders}>Track Order</button>
+            )}
           </div>
         ))}
       </div>

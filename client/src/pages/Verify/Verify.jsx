@@ -29,24 +29,34 @@ function Verify() {
   //   verifyPayment();
   // }, [verifyPayment]);
 
-  const handleOnClick = () => {
-    if (success === "true") {
-      navigate("/myorders");
-    } else {
-      navigate("/");
-    }
-  };
+  // const handleOnClick = () => {
+  //   if (success === "true") {
+  //     navigate("/myorders");
+  //   } else {
+  //     navigate("/");
+  //   }
+  // };
 
   return (
     <div className="verify">
       {/* <div className="spinner"></div> */}
       <div className="wrapper">
-        <p>
-          Your order <b>{orderId}</b> has been{" "}
-          {success === "true" ? "successfully placed" : "canceled"}.
-        </p>
-        <button onClick={handleOnClick}>
-          {success === "true" ? "Track your order here" : "Place a new order"}
+        <div className="texts">
+          <p>
+            Your order <b>{orderId}</b>{" "}
+            {success === "true"
+              ? "has been successfully placed!"
+              : "hasn't been paid yet."}
+          </p>
+          {success === "false" && (
+            <p>
+              Please pay your order in <b>30 minutes</b>, or it will be deleted
+              automatically.
+            </p>
+          )}
+        </div>
+        <button onClick={() => navigate("/myorders")}>
+          {success === "true" ? "Track Your Order Here" : "Pay Your Order Here"}
         </button>
       </div>
     </div>

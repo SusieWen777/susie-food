@@ -10,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // placing user order
 const placeOrder = async (req, res) => {
-  const client_url = "http://localhost:5174";
+  const client_url = "http://localhost:5173";
 
   try {
     const newOrder = new orderModel({
@@ -52,6 +52,10 @@ const placeOrder = async (req, res) => {
       cancel_url: `${client_url}/verify?success=false&orderId=${newOrder._id}`,
       metadata: { orderId: newOrder._id.toString() }, // deliver orderId to webhook
       expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // expire in 30 minutes
+    });
+
+    await orderModel.findByIdAndUpdate(newOrder._id, {
+      session_url: session.url,
     });
 
     res.json({ success: true, session_url: session.url });
@@ -113,7 +117,10 @@ const webhook = async (req, res) => {
 
     // update order payment status
     try {
-      await orderModel.findByIdAndUpdate(orderId, { payment: "paid" });
+      await orderModel.findByIdAndUpdate(orderId, {
+        payment: "paid",
+        status: "Food Processing",
+      });
       console.log("Order payment status updated successfully.");
     } catch (err) {
       console.error("Failed to update order payment status.", err);

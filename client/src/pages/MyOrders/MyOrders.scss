@@ -44,13 +44,17 @@
         border: none;
         padding: 12px 0px;
         border-radius: 4px;
-        background-color: #ffe1e1;
+        background-color: rgb(224, 244, 224);
         cursor: pointer;
         color: #454545;
 
         @include bigMobile {
           font-size: 10px;
         }
+      }
+
+      .pay-btn {
+        background-color: #ffe1e1;
       }
     }
   }
