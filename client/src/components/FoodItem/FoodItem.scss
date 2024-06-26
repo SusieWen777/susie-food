@@ -48,7 +48,7 @@
       }
 
       .remove-wrapper {
-        background-color: rgba(255, 0, 0, 0.27);
+        background-color: #ffc1073b;
       }
 
       .add-wrapper {
@@ -62,8 +62,9 @@
 
     .food-item-name-rating {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 8px;
+      align-items: start;
       margin-bottom: 10px;
 
       p {
@@ -82,7 +83,7 @@
     }
 
     .food-item-price {
-      color: tomato;
+      color: #ffc107;
       font-size: 22px;
       font-weight: 500;
       margin: 10px 0;

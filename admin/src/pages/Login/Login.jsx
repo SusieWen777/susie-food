@@ -42,7 +42,7 @@ function Login() {
   return (
     <div className="login">
       <div className="title">
-        <h1>Welcome to the Admin Panel of Tomato</h1>
+        <h1>Welcome to the Admin Panel of SusieFood.</h1>
         <p>You can manage the menu and orders here.</p>
         <p>Please login first.</p>
       </div>

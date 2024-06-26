@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { assets } from "../../assets/assets";
 import "./FoodItem.scss";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { StoreContext } from "../../context/StoreContext";
 import { baseURL } from "../../utils/axiosInstance";
+import RatingStars from "../RatingStarts/RatingStars";
 
 function FoodItem({ item }) {
   const { cartItems, addToCart, subtractFromCart } = useContext(StoreContext);
@@ -32,7 +32,7 @@ function FoodItem({ item }) {
               <IoIosRemove
                 onClick={() => subtractFromCart(_id)}
                 size="24px"
-                color="red"
+                color="#ffc107"
               />
             </div>
             <p>{cartItems[_id]}</p>
@@ -49,7 +49,7 @@ function FoodItem({ item }) {
       <div className="food-item-info">
         <div className="food-item-name-rating">
           <p>{name}</p>
-          <img src={assets.rating_starts} alt="" />
+          <RatingStars />
         </div>
         <p className="food-item-desc">{description}</p>
         <p className="food-item-price">${price}</p>

@@ -17,7 +17,7 @@
       font-size: 14px;
       padding: 10px 20px;
       color: #454545;
-      border: 1px solid tomato;
+      border: 1px solid #ffc107;
 
       @include bigMobile {
         grid-template-columns: 1fr 2fr 1fr;
@@ -28,7 +28,7 @@
       .food-icon {
         width: 30px;
         height: 30px;
-        color: tomato;
+        color: #ffc107;
       }
 
       p {
@@ -36,7 +36,7 @@
         color: #454545;
 
         span {
-          color: tomato;
+          color: #ffc107;
         }
       }
 
@@ -54,7 +54,7 @@
       }
 
       .pay-btn {
-        background-color: #ffe1e1;
+        background-color: #faf4e2;
       }
     }
   }

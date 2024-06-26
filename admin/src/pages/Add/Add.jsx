@@ -7,7 +7,7 @@ import axiosInstance from "../../utils/axiosInstance.js";
 const originalData = {
   name: "",
   description: "",
-  category: "Salad",
+  category: "Dumplings",
   price: "",
 };
 
@@ -106,14 +106,16 @@ function Add() {
               onChange={onChangeHandler}
               value={data.category}
             >
-              <option value="Salad">Salad</option>
-              <option value="Rolls">Rolls</option>
-              <option value="Deserts">Deserts</option>
-              <option value="Sandwich">Sandwich</option>
-              <option value="Cake">Cake</option>
-              <option value="Pure Veg">Pure Veg</option>
-              <option value="Pasta">Pasta</option>
+              <option value="Dumplings">Dumplings</option>
+              <option value="Vegetables">Vegetables</option>
+              <option value="Rice">Rice</option>
               <option value="Noodles">Noodles</option>
+              <option value="Drinks">Drinks</option>
+              <option value="Desserts">Desserts</option>
+              <option value="Soups">Soups</option>
+              <option value="Appetizers">Appetizers</option>
+              <option value="Stews">Stews</option>
+              <option value="Stir-frieds">Stir-frieds</option>
             </select>
           </div>
           <div className="add-price flex-col">

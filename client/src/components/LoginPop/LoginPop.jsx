@@ -50,7 +50,7 @@ function LoginPop({ setShowLogin }) {
           <h2>{currState}</h2>
           <MdCancel
             size="26px"
-            color="tomato"
+            color="#ffc107"
             onClick={() => setShowLogin(false)}
           />
         </div>

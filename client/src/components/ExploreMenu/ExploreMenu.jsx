@@ -6,10 +6,11 @@ function ExploreMenu({ category, setCategory }) {
     <div className="explore-menu" id="explore-menu">
       <h1>Explore our menu</h1>
       <p className="explore-menu-text">
-        Discover our diverse menu, featuring fresh Salads, delicious Rolls,
-        mouth-watering Desserts, hearty Sandwiches, delightful Cakes, wholesome
-        Pure Veg dishes, and flavorful Pasta and Noodles. Enjoy a culinary
-        journey with Susie Food, where every dish is crafted with care.
+        Discover our diverse menu, featuring savory Dumplings, vibrant
+        Vegetables, hearty Rice dishes, flavorful Noodles, refreshing Drinks,
+        delightful Desserts, nourishing Soups, tasty Appetizers, comforting
+        Stews, and delicious Stir-fried dishes. Enjoy a culinary journey with
+        SusieFood, where every dish is crafted with care.
       </p>
       <div className="explore-menu-list">
         {menu_list.map((item, index) => (

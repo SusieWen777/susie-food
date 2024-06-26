@@ -16,8 +16,8 @@
 
   form {
     width: 300px;
-    background-color: #faf0f0;
-    border: 3px solid tomato;
+    background-color: #faf7eb;
+    border: 3px solid #ffc107;
     border-radius: 10px;
     margin: 50px auto 0px auto;
     display: flex;
@@ -45,7 +45,7 @@
           position: absolute;
           right: 10px;
           top: 10px;
-          color: tomato;
+          color: #ffc107;
           cursor: pointer;
         }
       }
@@ -55,7 +55,7 @@
       border: none;
       padding: 12px 0px;
       border-radius: 4px;
-      background-color: tomato;
+      background-color: #ffc107;
       cursor: pointer;
       color: white;
     }

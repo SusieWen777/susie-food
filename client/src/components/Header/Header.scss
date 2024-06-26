@@ -4,7 +4,8 @@
   height: 34vw;
   margin: 30px auto;
   background: url("/header_img.png") no-repeat;
-  background-size: contain;
+  border-radius: 20px;
+  background-size: cover;
   position: relative;
 
   .header-contents {

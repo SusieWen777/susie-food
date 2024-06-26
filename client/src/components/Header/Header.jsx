@@ -6,13 +6,16 @@ function Header() {
       <div className="header-contents">
         <h2>Order your favorite food here</h2>
         <p>
-          Welcome to Susie Food, your go-to destination for delicious and
-          convenient food delivery. Whether you&apos;re craving a quick snack or
-          a gourmet meal, we&apos;ve got you covered. Browse through our
-          extensive menu, place your order, and enjoy fresh, hot meals delivered
-          right to your doorstep. Your favorite dishes are just a click away!
+          Welcome to SusieFood, your go-to for delicious chinese food delivery.
+          Our menu features a variety of authentic dishes, from savory dumplings
+          to hearty stews. Each meal is crafted with the finest ingredients and
+          delivered right to your doorstep. Browse through our extensive menu,
+          place your order, and enjoy fresh, hot meals delivered right to your
+          doorstep. Your favorite dishes are just a click away!
         </p>
-        <button>View Menu</button>
+        <a href="#food-display">
+          <button>View Menu</button>
+        </a>
       </div>
     </div>
   );

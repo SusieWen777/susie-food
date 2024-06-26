@@ -6,7 +6,7 @@
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
     align-items: start;
     gap: 30px;
-    border: 1px solid tomato;
+    border: 1px solid #ffc107;
     padding: 20px;
     margin: 30px 0px;
     font-size: 14px;
@@ -21,7 +21,7 @@
     .food-icon {
       width: 24px;
       height: 24px;
-      color: tomato;
+      color: #ffc107;
     }
 
     .order-item-food,
@@ -39,8 +39,8 @@
     }
 
     select {
-      background-color: #ffe8e4;
-      border: 1px solid tomato;
+      background-color: #faf5e6;
+      border: 1px solid #ffc107;
       width: max(10vw, 120px);
       padding: 10px;
       outline: none;

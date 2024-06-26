@@ -1,7 +1,7 @@
 import "./Navbar.scss";
 import { assets } from "../../assets/assets";
 import { TbBasketFilled } from "react-icons/tb";
-import { FiSearch } from "react-icons/fi";
+// import { FiSearch } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { IoBagCheck, IoLogOutOutline } from "react-icons/io5";
 import { useContext, useState } from "react";
@@ -55,7 +55,7 @@ function Navbar({ setShowLogin }) {
         </a>
       </div>
       <div className="navbar-right">
-        <FiSearch className="search-icon" color="#49557e" />
+        {/* <FiSearch className="search-icon" color="#49557e" /> */}
         <div className="navbar-basket-icon">
           <Link to="/cart">
             <TbBasketFilled className="basket-icon" color="#49557e" />

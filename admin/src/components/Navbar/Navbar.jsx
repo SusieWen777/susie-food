@@ -1,5 +1,4 @@
 import "./Navbar.scss";
-import { assets } from "../../assets/assets";
 import { IoLogOut } from "react-icons/io5";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -15,7 +14,7 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <img className="logo" src={assets.logo} alt="" />
+      <img className="logo" src="/logo.png" alt="" />
       {token ? (
         <IoLogOut onClick={handleLogout} className="logout-icon" />
       ) : null}

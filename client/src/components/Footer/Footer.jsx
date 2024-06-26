@@ -13,10 +13,10 @@ function Footer() {
         <div className="footer-content-left">
           <img src={assets.logo} alt="" />
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
+            SusieFood is your trusted partner for delicious and convenient food
+            delivery. Whether you&apos;re craving traditional tastes or modern
+            twists, SusieFood delivers the best meals right to your doorstep,
+            making every meal special.
           </p>
           <div className="footer-social-icons">
             <FaSquareFacebook color="#1877F2" size="32px" />
@@ -37,13 +37,13 @@ function Footer() {
           <h2>GET IN TOUCH</h2>
           <ul>
             <li>+61-123-456-7890</li>
-            <li>info@tomato.com</li>
+            <li>info@susiefood.com</li>
           </ul>
         </div>
       </div>
       <hr />
       <p className="footer-copyright">
-        Copyright 2024 &copy; Tomato.com - All Right Reserved.
+        Copyright 2024 &copy; SusieFood.com - All Right Reserved.
       </p>
     </div>
   );

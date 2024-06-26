@@ -32,7 +32,9 @@
     .explore-menu-list-item {
       img {
         width: 7.5vw;
+        height: 7.5vw;
         min-width: 80px;
+        min-height: 80px;
         cursor: pointer;
         border-radius: 50%;
         transition: 0.25s;
@@ -46,7 +48,7 @@
       }
 
       .active {
-        border: 4px solid tomato;
+        border: 4px solid #ffc107;
         padding: 2px;
       }
     }

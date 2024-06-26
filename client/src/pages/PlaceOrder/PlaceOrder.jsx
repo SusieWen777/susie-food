@@ -5,6 +5,7 @@ import "./PlaceOrder.scss";
 import { StoreContext } from "../../context/StoreContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { Delivery_Fee } from "../../utils/constants";
+import { toast } from "react-toastify";
 
 let originData = {
   firstName: "",
@@ -62,6 +63,11 @@ function PlaceOrder() {
 
   useEffect(() => {
     if (!token || getTotalCartAmount() === 0) {
+      if (!token) {
+        toast.error("Please login to place order");
+      } else if (getTotalCartAmount() === 0) {
+        toast.error("Please add items to cart to place order");
+      }
       navigate("/cart");
     }
   }, [token, navigate, getTotalCartAmount]);
