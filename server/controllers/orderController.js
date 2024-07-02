@@ -11,7 +11,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // placing user order
 const placeOrder = async (req, res) => {
   // const client_url = "http://localhost:5173";
-  const client_url = "https://susie-food-frontend.onrender.com/";
+  const client_url = "https://susie-food-frontend.onrender.com";
 
   try {
     const newOrder = new orderModel({
