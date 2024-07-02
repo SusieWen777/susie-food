@@ -13,7 +13,7 @@ import adminRouter from "./routes/adminRoute.js";
 // app config
 dotenv.config();
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 // middleware
 // app.use(express.json());
